@@ -1,0 +1,105 @@
+Pandas
+
+PANDAS: Panel Data:
+Panda is used in python for creating dataframes and data in tabular format: as this data is further used for plottings and everything.
+
+Code:
+
+import pandas as pd
+dict={"name":["Shubham","Kishan","Rahul","Deepak"],
+      "age":[22,21,21,20],
+      "Salary":[90999,60000,50000,55000]}
+df=pd.DataFrame(dict)
+print(df)
+
+Output:
+
+      name  age  Salary
+0  Shubham   22   90999
+1   Kishan   21   60000
+2    Rahul   21   50000
+3   Deepak   20   55000
+
+Note: We can read Excel data as well as csv data. 
+
+1. data.head(x) gives x entries from above and pd.tail(x) gives x entries from tail.
+Whenever data is quite bigger value of x is set by 5. it shows 5 data from above and below.
+2. To get the metadata i.e, data(info) about the data. we do:
+   data.info()
+3.data.describe() gives all the statistical data about our data.
+4. data.isnull() tells us about the null values whether an entry has a null value or not
+5. data.isnull().sum() gives the number of null values in the category
+
+Handling duplicate values in pandas
+1. data.duplicated() is used to print duplicated values in a row.
+2. print(df.duplicated(['EEID'])) tells us about that parameter's duplicate values.
+or also print(df['EEID'].duplicated())
+3. print(df['EEID'].duplicated().sum()) gives the number of duplicate entries in the column of EEID
+4. df.drop_duplicates("EEID") drops duplicates from the database with column name eeid. always try to delete duplicates from the column which acts like 
+primary key.
+
+Handling missing values in pandas
+
+1. print(data.dropna()) delete all the rows containing null values
+2. print(data.replace(np.nan,"X")) replaces all occurences of nan with X. But we don't want that.
+3. data["salary"]=data["salary"].replace(np.nan,300000) replaces the value in the specific column.
+4. Filling data backwards and forwards:
+	data.ffill() fill with the forward data.
+	data.bfill() fill with the backward data.
+
+Column Transformation in pandas
+data.loc[(data["Bonus %"]==0),"GetBonus"]="no bonus"
+data.loc[(data["Bonus %"]>0),"GetBonus"]="bonus"
+we insert another column and using conditional statements we provide values in that column.
+data["Full Name"]=data["First Name"].capitalize()+" "+data["Last Name"].capitalize 
+it concatenates two columns and make another column of full name
+
+Two ways to map:
+import pandas as pd
+import numpy as np
+Dict={"name":["Rohit","Shubham","Sachin","Pankaj"],
+      "Birthday month":["January","February","March","April"]
+     }
+data=pd.DataFrame(Dict)
+
+I. data["Short Months"] = data["Birthday month"].str[:3]
+print(data)
+
+ii. def extract(value):
+    return value[:3]
+data=pd.DataFrame(Dict)
+data["Short Month"]=data["Birthday month"].map(extract)
+
+Group by:
+
+dt=data.groupby([all the columns and subcolumns]).agg({"parameter":"function"})
+ex:
+gp=data.groupby(["Department","Gender"]).agg({"EEID":"count"})
+print(gp)
+gp1=data.groupby(["Country"]).agg({"Annual Salary":"mean"})
+
+
+Merge Concatenate and Join in pandas:
+
+merge:
+pd.merge(left=data1,right=data2,on="common point to merge",how="left or right"))
+ex:
+print(pd.merge(left=data1,right=data2,on="E ID"))
+print(pd.merge(left=data1,right=data2,on="E ID",how="right"))
+
+concatenate:
+print(pd.concat([data1,data2]))
+
+compare:
+print(df1.compare(df2))
+compares the two dataframes.
+
+print(df1.compare(df2,align_axis=0))
+print(df1.compare(df2,keep_shape=True))
+
+Pivoting and Melting:
+pivoting is a concept in which we make our custom index,columns and values
+print(df1.pivot(index="keys",columns="Names",values=["Houses","Grades"]))
+Melting is a concept in which a column name is made as variable and it's values are written in another column
+
+print(pd.melt(df1, id_vars="Names",value_vars=["Houses","Grades"],var_name="Houses & Grades", value_name="Values"))
