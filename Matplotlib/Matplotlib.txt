@@ -1,0 +1,246 @@
+Matplotlib::::::::::::::::
+
+
+
+
+1. import matplotlib.pyplot as plt #Library
+x=["Part1","Part2","Part3","Part4","Part5"] #list of parts of harry potter
+y=[98,73,87,99,78] #List of its popularity
+plt.bar(x,y) #to plot bar graph
+plt.show() #to show the plotted graph
+plt.xlabel("String") # to show the label on the x-axis.
+plt.ylabel("String") # to show the label on the y-axis.
+plt.title("String") # to show the title of the Graph
+plt.xlabel("Parts of Harry Potter",fontsize=10) fontsize and other properties can also be given for the x label ans well as y label
+
+plt.bar(x,y,color="red") #a lot of more parameters can be used alongside with this in order to plot
+put curser ther and enter "Shift"+"Tab" to get the list of all parameters
+
+for multiple colors of color in the bar graph:-
+1.
+import matplotlib.pyplot as plt
+x=["Part1","Part2","Part3","Part4","Part5"]
+y=[98,73,87,99,78]
+colors=["red","green","blue","yellow","orange"]
+plt.xlabel("Parts of Harry Potter",fontsize=10)
+plt.ylabel("Popularity")
+plt.title("Popularity of Harry Potter Parts")
+plt.bar(x,y,color=colors)
+plt.show()
+
+
+
+2. Line plot:
+A graph to show line plot:
+plt.plot(x,y) syntax for line plot.
+parameters:
+marker="o" for circle
+       "*" for asterisk
+	"^" for triangle
+color for colors of the line.
+ls for kind of line....(-) for solid (--) for dashed line.
+label- to give label to two or more different lines in the line plot
+plt.legend() is used to show the different lines.
+alpha is used for fading purposes
+
+3. scatter plot
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+x=np.random.randint(1,10,50)
+y=np.random.randint(1,100,50)
+color=np.random.randint(1,100,50)
+plt.scatter(x,y,marker="o",cmap="hot",c=color)
+plt.colorbar()
+plt.show()
+
+these are some of the functions used in scattered graph
+
+
+4. For pie chart
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+x=["Oneplus","Apple","Nokia","Samsung","Realme","Others"]
+y=[123,120,345,567,657,650]
+ex=[0,0.2,0,0,0,0]
+c=["silver","red","green","pink","gold","blue"]
+plt.pie(y,labels=x,colors=c,explode=ex,shadow=True,autopct="%.2f",startangle=0)
+plt.show()
+
+
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+data = pd.read_excel("expense3.xlsx")
+df = pd.DataFrame(data)
+
+# Convert 'Amount' to numeric and handle missing values
+df["Amount"] = pd.to_numeric(df["Amount"], errors="coerce")
+df.dropna(subset=["Category", "Amount"], inplace=True)  # Drop rows with missing Sub-Category or Amount
+
+# Group by Sub-Category and sum the Amount
+grouped_by = df.groupby("Category")["Amount"].sum()
+
+# Print grouped data
+print(grouped_by)
+plt.pie(grouped_by.values,labels=grouped_by.index)
+plt.show()
+
+5. For historgram.
+We make histogram using bins. We can create a custom number of bins and hence create histogram 
+using the following syntax:
+for a data of list:
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+List=[23,24,30,40,68,27,47,55,59,87,88,44,47,44,66,66,33,5,2,5,50,12,17,16]
+plt.hist(List,bins=15,color="red",edgecolor="black")
+plt.show()
+
+for a list of ages from an excel sheet:
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+dataset=pd.read_excel("ESD.xlsx")
+df=pd.DataFrame(dataset)
+plt.hist(df["Age"],30,edgecolor="pink")
+plt.show()
+
+
+6. Violin plot:
+
+Violin plot is a graph which shows distribution of frequency as a shape of violins.
+
+For list of data:
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+List=[20,30,40,50,0,30,40,40,30,30,70,80,70,75,80,82,88,40,20]
+plt.violinplot(List,showmedians=True)
+plt.show()
+
+For sheet of data:
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+dataset=pd.read_excel("ESD.xlsx")
+df=pd.DataFrame(dataset)
+plt.violinplot(df["Age"],showmedians=True)
+plt.show()
+plt.violinplot(df["Annual Salary"],showmedians=True)
+plt.show()
+
+7. Stem plot 
+stem plot is a kind of plot in which a graph is drawan in terms of the same attached stem it shows the variation of how data is changing 
+for list of data:
+import matplotlib.pyplot as plt
+x=[10,40,20,40,20,40,20,40,60,70,50,40]
+plt.stem(x,linefmt="--",markerfmt="D",bottom=0,orientation="horizontal")
+plt.show()
+
+for sheet of data:
+we can also combine stem plot and line plot to see the variation in a better way.
+import matplotlib.pyplot as plt
+import pandas as pd
+dataset=pd.read_excel("ESD.xlsx")
+df1=pd.DataFrame(dataset)
+df2=df1.head(35)
+plt.plot(df2["Age"])
+plt.stem(df2["Age"],linefmt="--")
+plt.show()
+
+
+8.Stack plot:
+stack plot is used to plot an area of multiple distributions within the same graph and area of distribution shows how much frequency is distributed in 
+that segment.
+
+for list data:
+import matplotlib.pyplot as plt
+
+days=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"]
+NOP1=[5,10,30,20,35,60,80]
+NOP2=[50,60,30,75,80,90,120]
+NOP3=[8,30,50,60,70,89,100]
+
+plt.stackplot(days,NOP1,NOP2,NOP3,colors=["pink","hotpink","magenta"])
+plt.show()
+
+
+9. Step plot:
+plotting is done in the form of steps.
+import matplotlib.pyplot as plt
+x=["day1","day2","day3","day4","day5"]
+y=[30,40,20,60,35]
+plt.step(x,y,where="mid",marker="o")
+plt.show()
+
+
+10. sub plot 
+subplots are used for the purpose of creating multiple graphs in one segment.
+
+import matplotlib.pyplot as plt
+
+x=[1,3,5,12,4]
+y=[12,2,34,15,10]
+plt.subplot(2,2,1)
+plt.title("height")
+plt.plot(x,y)
+
+x=[5,6,7,8,9]
+y=[67,50,66,56,82]
+plt.subplot(2,2,2)
+plt.title("weight")
+plt.bar(x,y)
+
+x=[2,4,6,8,10]
+y=[57,50,60,55,20]
+plt.subplot(2,2,3)
+plt.title("Health Index")
+plt.scatter(x,y)
+
+x=[1,3,5,7,9]
+y=[67,51,62,50,23]
+plt.subplot(2,2,4)
+plt.title("Income in thousands")
+plt.step(x,y)
+
+plt.suptitle("Employee Details")
+plt.show()
+
+to save these drawn graph in computer 
+we use 
+plt.savefig("filename.extenstionofimage")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
